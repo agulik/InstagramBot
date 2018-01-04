@@ -6,6 +6,8 @@ driver = webdriver.Chrome('./assets/chromedriver')
 insta_username = ''
 insta_password = ''
 
+user_1 = ''
+
 class InstagramBot():
 
     def login_user(self):
@@ -41,6 +43,19 @@ class InstagramBot():
             username_field.send_keys(insta_username)
             password_field.send_keys(insta_password)
             login_button.click()
+    
+    def find_user(self):
+
+        # let the elements load on the page
+        time.sleep(3)
+        
+        user_input_field = driver.find_element_by_xpath(
+            '//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]'
+        )
+        user_input_field.click()
+        time.sleep(3)
+
 
 session = InstagramBot()
 session.login_user()
+session.find_user()
