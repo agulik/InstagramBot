@@ -45,17 +45,33 @@ class InstagramBot():
             login_button.click()
     
     def find_user(self):
-
+        """Finds a user and navigates to their profile""" 
         # let the elements load on the page
         time.sleep(3)
         
         user_input_field = driver.find_element_by_xpath(
-            '//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]'
+            '//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input'
         )
-        user_input_field.click()
+        # user_input_field.click()
         time.sleep(3)
+        user_input_field.send_keys(user_1)
+        time.sleep(3)
+        user_to_click = driver.find_element_by_xpath(
+            '//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/div[2]/div[2]/div/a[1]'
+        )
+        user_to_click.click()
+    
+    def find_user_followings(self):
+        """Obtains a list of followings from user"""
+        # let the elements load on the page
+        time.sleep(3)
+        follower_list = driver.find_element_by_xpath(
+            '//*[@id="react-root"]/section/main/article/header/section/ul/li[2]/a'
+        )
+        follower_list.click()
 
 
 session = InstagramBot()
 session.login_user()
 session.find_user()
+session.find_user_followings()
