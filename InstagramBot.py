@@ -1,16 +1,13 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome('./assets/chromedriver')
-insta_username = ''
-insta_password = ''
 
-user_1 = ''
+class InstagramBot:
 
-class InstagramBot():
-
-    def login_user(self):
+    def login_user(self, insta_username, insta_password):
         """Logins the user with the given username and password""" 
         print('Logging in user...')
         driver.get('http://www.instagram.com');
@@ -44,7 +41,7 @@ class InstagramBot():
             password_field.send_keys(insta_password)
             login_button.click()
     
-    def find_user(self):
+    def find_user(self, user_1):
         """Finds a user and navigates to their profile""" 
         # let the elements load on the page
         time.sleep(3)
@@ -61,8 +58,8 @@ class InstagramBot():
         )
         user_to_click.click()
     
-    def find_user_followings(self, amount):
-        """Obtains a list of followings from user"""
+    def like_posts_of_user_followings(self, amount_of_followers, posts_to_like):
+        """Obtains a list of followings from user and likes their posts"""
         # let the elements load on the page
         time.sleep(3)
         follower_list = driver.find_element_by_xpath(
@@ -70,13 +67,13 @@ class InstagramBot():
         )
         follower_list.click()
         time.sleep(3)
+        num_of_search = 13
+        # find the modal window
+        modal_to_scroll = driver.find_element_by_xpath('/html/body/div[4]/div/div[2]/div')
+        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal_to_scroll)
+            
         # amount_of_accounts_to_follow = driver.find_element_by_xpath(
-        #     '/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li[%s]' % amount
+        #     '/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li[%d]' % amount_of_followers
         # )
         # driver.execute_script("arguments[0].scrollIntoView();", amount_of_accounts_to_follow)
 
-
-session = InstagramBot()
-session.login_user()
-session.find_user()
-session.find_user_followings(100)
