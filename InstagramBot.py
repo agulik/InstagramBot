@@ -61,7 +61,7 @@ class InstagramBot():
         )
         user_to_click.click()
     
-    def find_user_followings(self):
+    def find_user_followings(self, amount):
         """Obtains a list of followings from user"""
         # let the elements load on the page
         time.sleep(3)
@@ -69,9 +69,14 @@ class InstagramBot():
             '//*[@id="react-root"]/section/main/article/header/section/ul/li[2]/a'
         )
         follower_list.click()
+        time.sleep(3)
+        # amount_of_accounts_to_follow = driver.find_element_by_xpath(
+        #     '/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li[%s]' % amount
+        # )
+        # driver.execute_script("arguments[0].scrollIntoView();", amount_of_accounts_to_follow)
 
 
 session = InstagramBot()
 session.login_user()
 session.find_user()
-session.find_user_followings()
+session.find_user_followings(100)
