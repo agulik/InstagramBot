@@ -67,13 +67,15 @@ class InstagramBot:
         )
         follower_list.click()
         time.sleep(3)
-        num_of_search = 13
-        # find the modal window
-        modal_to_scroll = driver.find_element_by_xpath('/html/body/div[4]/div/div[2]/div')
-        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal_to_scroll)
-            
-        # amount_of_accounts_to_follow = driver.find_element_by_xpath(
-        #     '/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li[%d]' % amount_of_followers
-        # )
-        # driver.execute_script("arguments[0].scrollIntoView();", amount_of_accounts_to_follow)
+
+        # find the followers modal
+        followers_modal = driver.find_element_by_xpath("/html/body/div[4]/div/div[2]/div/div[2]")
+
+        # scroll x number of times inside the modal to load the users
+        for i in range(int(10)):
+            driver.execute_script(
+                "arguments[0].scrollTop = arguments[0].scrollHeight", followers_modal)
+            time.sleep(1)
+
+
 

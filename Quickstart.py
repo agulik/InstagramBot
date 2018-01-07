@@ -12,7 +12,7 @@ user_1 = ''
 # -------------------------------------
 
 # amount of followers to interact with per user
-amount_of_followers = 100
+amount_of_followers = 20
 
 # amount of posts to like per follower
 posts_to_like = 3
