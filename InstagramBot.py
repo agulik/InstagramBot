@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 driver = webdriver.Chrome('./assets/chromedriver')
 
 class InstagramBot:
+    """An bot which crawls instagram and interacts with users"""
 
     def login_user(self, insta_username, insta_password):
         """Logins the user with the given username and password""" 
