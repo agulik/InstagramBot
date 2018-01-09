@@ -1,4 +1,5 @@
 import time
+import math
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
@@ -72,7 +73,9 @@ class InstagramBot:
         followers_modal = driver.find_element_by_xpath("/html/body/div[4]/div/div[2]/div/div[2]")
 
         # scroll x number of times inside the modal to load the users
-        for i in range(int(10)):
+        # there are 9 users displayed by default
+        # scroll: amount of followers to interact with / 9 +1 (to round up and avoid bugs)
+        for i in range(int(math.ceil(amount_of_followers/9)+1)):
             driver.execute_script(
                 "arguments[0].scrollTop = arguments[0].scrollHeight", followers_modal)
             time.sleep(1)
