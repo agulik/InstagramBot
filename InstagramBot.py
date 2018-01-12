@@ -13,12 +13,13 @@ class InstagramBot:
         """Logins the user with the given username and password""" 
         print('Logging in user...')
         driver.get('http://www.instagram.com');
-        time.sleep(5) # Let the user actually see something!
+        time.sleep(3) # Let the user actually see something!
+        print('slept 3 seconds')
 
         # if on sign up page, switch to login
         # if there is a mobile field, we know we are on the sign up page
         mobile_field = driver.find_element_by_xpath(
-            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[2]/div/input[@placeholder="Mobile Number or Email"]'
+            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[2]/div/div[1]/input[@name="emailOrPhone"]'
         )
         switch_to_login_button = driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/article/div[2]/div[2]/p/a'
@@ -29,10 +30,10 @@ class InstagramBot:
         
         # if already on sign-up page, login
         username_field = driver.find_element_by_xpath(
-            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[1]/div/input[@name="username"]'
+            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[1]/div/div[1]/input[@name="username"]'
         )
         password_field = driver.find_element_by_xpath(
-            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[2]/div/input'
+            '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[2]/div/div[1]/input[@name="password"]'
         )
         login_button = driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/span/button'
