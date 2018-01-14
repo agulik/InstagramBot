@@ -82,12 +82,15 @@ class InstagramBot:
                 "arguments[0].scrollTop = arguments[0].scrollHeight", followers_modal)
             time.sleep(1)
         
-        #TODO need to get inside modal and THEN find a tags
-        #TODO right now it is scraping off main page and not modal
+        # iterate over every user and store their url into an array
         account_list = []
-        for account in driver.find_elements_by_css_selector('li a'):
-            link_to_profile = driver.find_element_by_css_selector('a').get_attribute('href')
-            account_list.append(link_to_profile)
+        for i in range (amount_of_followers):
+            xpath = "/html/body/div[4]/div/div[2]/div/div[2]/ul/div/li["
+            xpath += str(i+1) # +1 because index of a tags start at 1
+            xpath += "]/div/div[1]/a"
+            user = driver.find_element_by_xpath(xpath)
+            user_url = user.get_attribute('href')
+            account_list.append(user_url)
         
         print(account_list)
 
