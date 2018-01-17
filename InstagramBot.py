@@ -1,6 +1,8 @@
 import time
 import math
+from pyvirtualdisplay import Display
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
@@ -9,12 +11,29 @@ driver = webdriver.Chrome('./assets/chromedriver')
 class InstagramBot:
     """An bot which crawls instagram and interacts with users"""
 
-    def login_user(self, insta_username, insta_password):
+    def __init__(self, insta_username=None, insta_password=None, nogui=False):
+        if nogui:
+            self.display = Display(visible=0, size=(800, 600))
+            self.display.start()
+
+        chrome_options = Options()
+        chrome_options.add_argument('--dns-prefetch-disable')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--lang=en-US')
+        chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'en-US'})
+        
+        if not insta_username or insta_password:
+            print('Please provide Username and Password')
+        
+        self.insta_username = insta_username
+        self.insta_password = insta_password
+        self.nogui = nogui
+            
+    def login_user(self):
         """Logins the user with the given username and password""" 
-        print('Logging in user...')
+        print('Logging in the user...')
         driver.get('http://www.instagram.com');
         time.sleep(3) # Let the user actually see something!
-        print('slept 3 seconds')
 
         # if on sign up page, switch to login
         # if there is a mobile field, we know we are on the sign up page
@@ -39,10 +58,12 @@ class InstagramBot:
             '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/span/button'
         )
         if username_field is not None:
-            print("logging user credentials...")
-            username_field.send_keys(insta_username)
-            password_field.send_keys(insta_password)
+            print("Entering user credentials...")
+            username_field.send_keys(self.insta_username)
+            password_field.send_keys(self.insta_password)
             login_button.click()
+        
+        print("User logged in!")
     
     def find_user(self, user_1):
         """Finds a user and navigates to their profile""" 
@@ -77,6 +98,7 @@ class InstagramBot:
         # scroll x number of times inside the modal to load the users
         # there are 9 users displayed by default
         # scroll: amount of followers to interact with / 9 +1 (to round up and avoid bugs)
+        print("Fetching followers of user")
         for i in range(int(math.ceil(amount_of_followers/9)+1)):
             driver.execute_script(
                 "arguments[0].scrollTop = arguments[0].scrollHeight", followers_modal)

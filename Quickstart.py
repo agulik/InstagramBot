@@ -19,8 +19,8 @@ posts_to_like = 3
 
 #
 
-session = InstagramBot()
-session.login_user(insta_username=insta_username, insta_password=insta_password)
+session = InstagramBot(insta_username=insta_username, insta_password=insta_password, nogui=False)
+session.login_user()
 session.find_user(user_1=user_1)
 session.like_posts_of_user_followings(
     amount_of_followers=amount_of_followers,
