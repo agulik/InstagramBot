@@ -114,12 +114,12 @@ class InstagramBot:
             user_url = user.get_attribute('href')
             account_list.append(user_url)
         
-        # iterate over each user and like their posts
+        """iterate over each user and like their posts"""
         for account in account_list:
             driver.get(account);
             time.sleep(3)
 
-            # for each user, store the amount of posts to like in an array
+            # for each user, for each post to like, store the url in an array
             posts_array = []
             for i in range (posts_to_like):
                 image_xpath = '//*[@id="react-root"]/section/main/article/div/div[1]/div[1]/div['
